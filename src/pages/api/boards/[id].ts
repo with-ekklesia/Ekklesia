@@ -51,7 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
 };
 
 export const DELETE: APIRoute = async ({ params, request }) => {
-  const id = params.id;
+  const id = Number(params.id);
   const removedBoard = await deleteSingleBoard(id);
   return new Response(
     JSON.stringify({

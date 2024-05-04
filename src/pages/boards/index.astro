@@ -9,7 +9,7 @@ const boards = await db.select().from(boardsTable);
 console.log(boards);
 ---
 
-<Layout>
+<Layout title="Boards">
     {
         boards.map((board) => (
             <ColorCard title={board.name} body="View all available Boards." />

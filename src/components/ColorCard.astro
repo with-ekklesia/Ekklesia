@@ -1,0 +1,24 @@
+---
+interface Props {
+    title: string;
+    body: string;
+}
+
+const { title, body } = Astro.props;
+---
+
+<div
+    class="link-card flex rounded-md border-[color:var(--ek-tan)] bg-[color:var(--offWhite)] p-1"
+>
+    <div
+        class="w-100 rounded-md border-[2px] border-[color:var(--ek-tan)] bg-[color:var(--offWhite)] px-8 py-8 leading-normal"
+    >
+        <h2 class="m-0 text-xl text-[color:var(--darkGreen)]">
+            {title}
+            <span>&rarr;</span>
+        </h2>
+        <p class="mb-0 mt-1">
+            {body}
+        </p>
+    </div>
+</div>

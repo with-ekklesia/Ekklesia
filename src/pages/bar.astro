@@ -1,0 +1,18 @@
+---
+import Board from "../components/Board.astro";
+import Layout from "../layouts/Layout.astro";
+import { db } from "../db/drizzle.ts";
+
+const boardRows = await db.query.boards.findMany({
+    with: {
+        columns: true
+    }
+});
+
+const selectedBoard = boardRows[0] || null;
+
+---
+<Layout title="Welcome to Astro.">
+    <div>Board view</div>
+    <Board board={selectedBoard} />
+</Layout>

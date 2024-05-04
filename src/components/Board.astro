@@ -1,0 +1,41 @@
+---
+interface Column {
+    id: number;
+    name: string;
+    isActive: boolean | null;
+    boardId: number;
+    description: string | null;
+    settings: unknown;
+    type: string;
+  }
+  
+  interface Board {
+    id: number;
+    name: string;
+    isActive: boolean | null;
+    columns: Column[];
+  }
+  
+  interface Props {
+    board: Board
+  }
+
+  const { board } = Astro.props;
+  
+---
+  <table>
+    <thead>
+      <tr>
+        {board?.columns?.map((column) => (
+          <th id={column.id.toString()}>{column.name}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {board?.columns?.map(() => (
+          <td></td>
+        ))}
+      </tr>
+    </tbody>
+  </table>

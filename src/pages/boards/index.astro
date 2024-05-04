@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ColorCard from "../../components/ColorCard.astro";
+
+import { db } from "../../db/drizzle.ts";
+import { boards as boardsTable } from "../../db/schema.ts";
+
+const boards = await db.select().from(boardsTable);
+console.log(boards);
+---
+
+<Layout>
+    {
+        boards.map((board) => (
+            <ColorCard title={board.name} body="View all available Boards." />
+        ))
+    }
+</Layout>

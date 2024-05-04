@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { InsertBoard } from "../../db/schema";
+import { getEntries } from "../../lib/formData";
+
+const request = Astro.request;
+const method = request.method;
+
+
+
+if (method === "POST") {
+    const formData = await request.formData();
+    const allValues = formData.entries();
+    const insertBoardValues = getEntries<InsertBoard>(formData);
+    
+    Object.entries(insertBoardValues).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+    });
+}
+
+---
+<Layout title="Welcome to Astro.">
+    <form class="bg-white rounded-lg" method="POST" action="/boards/new">
+        <label>
+        Board Name:
+        <input type="text" name="name" required  class="border-2 border-black p-1"/>
+        </label>
+        <br />
+        <label>
+            Active:
+            <input type="checkbox" name="isActive" />
+        </label>
+        <br />
+        <button type="submit">Create Board</button>
+    </form>
+</Layout>

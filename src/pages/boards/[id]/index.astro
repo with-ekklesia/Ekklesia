@@ -1,0 +1,37 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ItemList from "@components/ItemList.astro";
+import * as tables from "@db/schema.ts";
+import { db } from "@db/drizzle.ts";
+import { eq } from "drizzle-orm";
+
+const { id } = Astro.params;
+const boardId = Number(id);
+
+const board = await db.query.boards.findFirst({
+    where: eq(tables.boards.id, boardId),
+    with: {
+        columns: {
+            columns: {
+                id: true,
+                name: true
+            }
+        }
+    },
+    columns: {
+        id: true,
+        name: true
+    }
+});
+
+if (board === undefined) {
+    return Astro.redirect("/boards");
+}
+
+---
+
+<Layout title="Boards">
+    <div class="p-4">
+        <ItemList board={board} />
+    </div>
+</Layout>

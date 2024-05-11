@@ -2,9 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import ColorStyle from "../components/ColorStyle.astro";
+import { boards, items } from "@db/schema";
+import { db } from "@db/drizzle.ts";
 
-import { db } from "../db/drizzle.ts";
-import { boards, items } from "../db/schema";
 
 const selectedBoard = await db.query.boards.findMany({
     with: {

@@ -1,20 +1,16 @@
 import type { Config } from "drizzle-kit";
-import { defineConfig, loadEnv } from "vite";
+import { loadEnv } from "vite";
 
 const env = loadEnv("DEV", process.cwd(), "");
-const url = env.TURSO_DATABASE_URL;
-const auth = env.TURSO_AUTH_TOKEN;
 
 export default {
-  schema: "./src/db/schema.ts",
-  out: "./migrations",
-  driver: "turso",
+  schema: './src/db/schema.ts',
+  out: './drizzle',
+  driver: 'better-sqlite',
   dbCredentials: {
-    url: url!,
-    authToken: auth!,
-  },
-  // Print all statements
-  verbose: true,
-  // Always ask for my confirmation
-  strict: true,
+    url:
+      env.NODE_ENV === 'production'
+        ? '/data/db.sqlite3'
+        : './db.sqlite3'
+  }
 } satisfies Config;

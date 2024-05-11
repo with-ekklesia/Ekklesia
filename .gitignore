@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 *.db
 .vscode/
+
+*.db
+*.sqlite3

@@ -1,8 +1,23 @@
 ---
 import ItemListRows from "./ItemListRows.astro";
 import { db } from "../db/drizzle.ts";
-import { boards as boardsTable } from "../db/schema.ts";
+import * as tables from "../db/schema.ts";
 import { eq } from "drizzle-orm";
+
+interface Props {
+    board: {
+        id: number;
+        name: string;
+        columns: {
+            id: number;
+            name: string;
+        }[];
+    }
+};
+
+const { board } = Astro.props;
+
+/*
 const boards = [
     {
         id: 1,
@@ -34,38 +49,15 @@ const boards = [
     },
     // More boards...
 ];
-
-const boardFooe = await db.query.boards.findFirst({
-    where: eq(boardsTable.id, 1),
-    with: {
-        columns: {
-            columns: {
-                id: true,
-                name: true
-            }
-        }
-    },
-    columns: {
-        id: true,
-        name: true
-    }
-})
-
-const boardFoo = await db
-    .select({
-        id: boardsTable.id,
-        name: boardsTable.name,
-        isActive: boardsTable.isActive,
-    })
-    .from(boardsTable);
+*/
 ---
 
 <div
-    class="not-prose relative overflow-hidden rounded-xl bg-[color:var(--ek-lightGreen)] dark:bg-slate-800/25"
+    class="not-prose relative overflow-hidden rounded-xl bg-[color:var(--ek-lightGreen)]"
 >
     <div
         style="background-position:10px 10px"
-        class="bg-grid-slate-100 dark:bg-grid-slate-700/25 absolute inset-0 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.6))] dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"
+        class="bg-grid-slate-100 dark:bg-grid-slate-700/25 absolute inset-0"
     >
     </div>
     <div class="relative overflow-auto rounded-xl">
@@ -74,39 +66,25 @@ const boardFoo = await db
                 <thead>
                     <tr>
                         <th
-                            class="border-b p-4 pb-3 pl-8 pt-0 text-left font-medium text-[color:var(--ek-black)] dark:border-slate-600 dark:text-slate-200"
+                            class="border-b p-4 pb-3 pl-8 pt-0 text-left font-medium text-[color:var(--ek-black)]"
                             >Id</th
                         >
                         <th
-                            class="border-b p-4 pb-3 pt-0 text-left font-medium text-[color:var(--ek-black)] dark:border-slate-600 dark:text-slate-200"
+                            class="border-b p-4 pb-3 pt-0 text-left font-medium text-[color:var(--ek-black)]"
                             >Name</th
                         >
-                        {
-                            /* Render additional column headers for column values */
-                        }
-                        {
-                            boards[0].items[0].columnValues.map(
-                                (columnValue, index) => (
-                                    <th
-                                        key={index}
-                                        class="border-b p-4 pb-3 pt-0 text-left font-medium text-[color:var(--ek-black)] dark:border-slate-600 dark:text-slate-200"
-                                    >
-                                        {columnValue.column.name}
-                                    </th>
-                                ),
-                            )
-                        }
+                        {board.columns.map((column, index) => (
+                            <th class="border-b p-4 pb-3 pt-0 text-left font-medium text-[color:var(--ek-black)]">
+                                {column.name}
+                            </th>
+                        ))}
                     </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-slate-800">
-                    {/* Render items */}
-                    <ItemListRows items={boards[0].items} />
+                <tbody class="bg-white">
+                    <ItemListRows boardId={board.id} />
                 </tbody>
             </table>
         </div>
     </div>
-    <div
-        class="pointer-events-none absolute inset-0 rounded-xl border border-black/5 dark:border-white/5"
-    >
-    </div>
+    <div class="pointer-events-none absolute inset-0 rounded-xl border border-black/5"></div>
 </div>

@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
-import { db } from "../../db/drizzle";
-import { boards, type InsertBoard } from "../../db/schema";
+import { db } from "@db/drizzle";
+import { boards } from "@db/schema";
+import type { InsertBoard } from "@db/types";
 import { eq } from "drizzle-orm";
 
 const getSingleBoard = (id: number) =>
@@ -50,14 +51,6 @@ export const DELETE: APIRoute = async ({ params, request }) => {
   return new Response(
     JSON.stringify({
       message: "This was a DELETE!",
-    }),
-  );
-};
-
-export const ALL: APIRoute = ({ request }) => {
-  return new Response(
-    JSON.stringify({
-      message: `This was a ${request.method}!`,
     }),
   );
 };

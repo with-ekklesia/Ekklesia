@@ -1,18 +1,17 @@
 ---
 interface Props {
-    columnValues: any;
+    columnValues: {
+        id: number;
+        value: string | null;
+        columnId: number
+    }[];
 }
 
 const { columnValues } = Astro.props;
 ---
 
-{
-    columnValues.map((columnValue, index) => (
-        <td
-            key={index}
-            class="border-b border-slate-100 p-4 text-[color:var(--ek-black)] dark:border-slate-700 dark:text-slate-400"
-        >
-            {columnValue.value}
-        </td>
-    ))
-}
+{columnValues.map((columnValue, index) => (
+    <td class="border-b border-slate-100 p-4 text-[color:var(--ek-black)]">
+        {columnValue.value}
+    </td>
+))}

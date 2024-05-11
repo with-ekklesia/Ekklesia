@@ -1,10 +1,9 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ColorCard from "../../components/ColorCard.astro";
-import BoardList from "../../components/BoardList.astro";
-
-import { db } from "../../db/drizzle.ts";
-import { boards as boardsTable } from "../../db/schema.ts";
+import Layout from "@layouts/Layout.astro";
+import BoardList from "@components/BoardList.astro";
+import BoardListo from "@components/BoardListo";
+import * as tables from "@db/schema.ts";
+import { db } from "@db/drizzle.ts";
 
 //const boards = await db.select().from(boardsTable);
 //console.log(boards);
@@ -13,5 +12,6 @@ import { boards as boardsTable } from "../../db/schema.ts";
 <Layout title="Boards">
     <div class="p-4">
         <BoardList />
+        <BoardListo client:load />
     </div>
 </Layout>

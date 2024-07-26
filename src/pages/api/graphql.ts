@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
 import { createYoga } from "graphql-yoga";
 import { buildSchema } from "drizzle-graphql";
-import { GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql'
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql'
 
 // db - your drizzle instance, schema - your drizzle tables
 import { db } from "@db/drizzle";
 import * as tables from "@db/schema";
 import { eq, inArray } from "drizzle-orm";
+import type { InsertBoard } from "@db/types";
 
 // const { schema, entities }
 const { entities } = buildSchema(db);
@@ -21,11 +22,15 @@ const schema = new GraphQLSchema({
           ids: { type: new GraphQLList(new GraphQLNonNull(GraphQLInt)) },
         },
         resolve: async (source, { ids }: { ids: number[]}, context, info) => {
-          const boards = [{id: 123, isActive: true, name: "test Board"}];//await db.select().from(tables.boards).where(inArray(tables.boards.id, ids ));
+          const boards = await db.select().from(tables.boards);
           return boards;
         },
       },
     },
+  }),
+  mutation: new GraphQLObjectType({
+    name: 'Mutation',
+    fields: entities.mutations
   }),
 });
 

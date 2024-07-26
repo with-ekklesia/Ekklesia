@@ -1,0 +1,271 @@
+---
+import CheckboxIndicator from "./CheckboxIndicator.astro";
+import AddColumnContainer from "./AddColumnContainer.astro";
+import ColumnHeader from "./ColumnHeader.astro";
+
+const tableBorderColor = "rgb(75, 78, 105)";
+
+---
+<style is:global define:vars={{ tableBorderColor}}>
+    .pulseWrapper--j\+K7c {
+        background-color: rgb(48, 50, 78);
+
+    }
+
+    .group-header-component-wrapper .group-header-component-title-row {
+        display: flex;
+        position: sticky;
+        z-index: 1;
+        left: 40px;
+    }
+
+
+    .group-header-component {
+        display: flex;
+        position: relative;
+    }
+    
+.name-column-header-light {
+    padding:0 3px
+}
+
+.name-column-header-light.simple-name-header {
+    padding:0
+}
+
+.name-column-header-light.simple-name-header .simple-name-column-title {
+    text-align: center;
+    width:100%
+}
+
+.name-column-header-light.name-column-header-with-subitems {
+    padding-left:0px
+}
+
+.name-column-header-light.name-column-header-with-subitems .collapse-group-button {
+    position: static !important;
+    margin-right:11px
+}
+
+.name-column-header-light.entirely-draggable {
+    padding:0px 4px
+}
+
+.name-column-header-light.entirely-draggable .pulses-count.pulses-count-near-name {
+    margin-right:8px
+}
+
+.name-column-header {
+    position: relative;
+    min-height: 40px;
+    text-align: left;
+    font-size: 18px;
+    flex: 1 0 308px;
+    min-width: 0px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 1px;
+    z-index:1
+}
+
+.name-column-header.simple-name-header {
+    min-height: 36px;
+    border-right:1px solid var(--tableBorderColor)
+}
+
+.name-column-header.simple-name-header.no-vertical-borders {
+    border-right:0px
+}
+
+.name-column-header.simple-name-header .simple-name-column-title {
+    -webkit-font-smoothing:initial
+}
+
+.name-column-header.simple-name-header.without-left-indicators::after {
+    border-top-left-radius: 8px;
+    border-left: 1px solid var(--table-border-color);
+    left:0px
+}
+
+.name-column-header.simple-name-header::after {
+    content: "";
+    border-top: 1px solid var(--tableBorderColor);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    left:6px
+}
+
+.name-column-header.simple-name-header.with-left-indicator-name {
+    top:0
+}
+
+.name-column-header.simple-name-header .column-header-inner {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content:center
+}
+
+.name-column-header.simple-name-header .column-header-inner:not(.column-header-with-left-indicator) {
+    width:initial
+}
+
+.name-column-header.simple-name-header .name-column-header-component__checkbox-indicator {
+    padding-left: 8px;
+    border-right: 1px solid var(--layout-border-color);
+    height: 100%;
+    display:flex
+}
+
+.name-column-header.simple-name-header .pulse-left-indicator.with-border {
+    box-shadow: 0px -2px 0 0 var(--primary-background-color);
+    margin: 0 !important;
+    left:0
+}
+
+.name-column-header.entirely-draggable {
+    cursor: grab;
+    transition: background-color .2s ease-in-out;
+    border-top-left-radius: 4px;
+    padding:0px 4px
+}
+
+.name-column-header.entirely-draggable .pulses-count.pulses-count-near-name {
+    margin-right:8px
+}
+
+.name-column-header.entirely-draggable:hover {
+    background-color:var(--pulse-background-color)
+}
+
+.name-column-header.entirely-draggable:hover .pulses-count.pulses-count-near-name {
+    background-color:var(--pulse-hover-background-color)
+}
+
+.name-column-header.with-left-indicator-name {
+    height: 100%;
+    top: -1px;
+    padding-bottom:0
+}
+
+.name-column-header.with-left-indicator-name .group-name {
+    margin-right:8px
+}
+
+.name-column-header.with-left-indicator-name.name-column-header-light .group-name {
+    margin-right:11px
+}
+
+.name-column-header .pulse-left-indicator.with-border {
+    left: -2px;
+    margin-right:8px
+}
+
+.name-column-header .column-header-inner {
+    min-width: 0px;
+    position: relative;
+    height: 100%;
+    align-items: center;
+    display:flex
+}
+
+.name-column-header .column-header-inner.column-header-inner-with-icons > .collapse-group-button {
+    position: static !important;
+    margin-right:8px
+}
+
+.name-column-header .column-header-inner.column-header-inner-with-icons > .drag-handle {
+    position: static !important;
+    margin-right: 8px;
+    margin-left:0px
+}
+
+.name-column-header .column-header-inner.column-header-inner-with-icons .group-name {
+    margin-left:0px !important
+}
+
+.name-column-header .column-header-inner:not(.column-header-with-left-indicator) {
+    width:100%
+}
+
+.name-column-header .column-header-inner.column-header-with-left-indicator {
+    height: 100%;
+    align-items:center
+}
+
+.name-column-header .drag-handle {
+    cursor: move;
+    position: absolute;
+    display: none;
+    margin-right: 4px;
+    left: 24px;
+    font-size: 13px;
+    color:#c4c4c4
+}
+
+.name-column-header .drag-handle.collapsed-drag {
+    margin-left:8px
+}
+
+.name-column-header .pulses-count {
+    font-size: 14px;
+    font-weight:400
+}
+
+.name-column-header .pulses-count.pulses-count-near-name {
+    text-align: left;
+    padding: 2px 6px;
+    background-color: var(--pulse-background-color);
+    display: inline-block;
+    border-radius: 4px;
+    white-space:nowrap
+}
+
+.name-column-header .resize-column {
+    display:none
+}
+
+.name-column-header.resizing .resize-column {
+    display:block
+}
+
+.name-column-header:hover .resize-column {
+    display:block
+}
+
+.name-column-header:hover .column-header-inner .drag-handle {
+    display: inline-block
+}
+
+</style>
+<div id="row-header-currentBoard-1819986031-1819986031_topics-notfloating" class="group-header-component grid-group-header bx-collapse-new group-header-component--three-dots-style groupBackground--eje+B with-footers-columns">
+    <div class="grid-floating-cells-row-component seperated-footer with-group-borders sticky-feature no-flex-grow" style="flex-basis: 400px;">
+       <div class="grid-floating-cell-pulse-menu col-identifier-pulse-menu without-subitem-line">
+          <div class="pulse-menu-component"></div>
+       </div>
+       <div class="grid-floating-cell-component-wrapper grid-cell-wrapper-component col-identifier-name" style="flex-basis: 400px; max-width: 400px;">
+          <div class="grid-cell-component-inner full groupHeaderOriginType---Nllk" style="display: block;">
+             <div id="row-header-currentBoard-1819986031-1819986031_topics-notfloating-focus-name-" class="name-column-header col-identifier-name name-column-header-with-subitems with-left-indicator-name can-edit floating-column simple-name-header" style="flex-basis: 400px;">
+                <div class="pulse-left-indicator with-border" style="background-color: rgb(255, 203, 0); color: rgb(255, 203, 0);">
+                   <div class="left-indicator-inner" style="border-color: rgb(255, 203, 0);">
+                      <div class="left-indicator-checkbox"></div>
+                   </div>
+                </div>
+                <CheckboxIndicator />
+                <div class="column-header-inner column-header-inner-with-icons column-header-with-left-indicator">
+                   <h6 class="headingComponent_0075236e71 simple-name-column-title fs-mask elementTypeH6_b91613c24e sizeLarge_f128d884c6 singleLineEllipsis_5cb9edeb33" aria-label="" data-testid="heading" style="--heading-clamp-lines: 1;">Item</h6>
+                </div>
+                <div class="resize-column resize-mode"></div>
+             </div>
+          </div>
+          <div class="grid-cell-component-inner light groupHeaderOriginType---Nllk" style="display: none;"></div>
+       </div>
+    </div>
+    <div class="grid-cells-row-component-wrapper" style="max-width: 1638px; flex-basis: 1638px;">
+       <ColumnHeader identifier="person" />
+       <ColumnHeader identifier="status" />
+       <ColumnHeader identifier="connect_boards" />
+    </div>
+    <AddColumnContainer />
+ </div>

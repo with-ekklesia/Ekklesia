@@ -100,3 +100,13 @@ export const columnValueRelations = relations(columnValues, ({ one }) => ({
     references: [items.id],
   }),
 }));
+
+export const columnValueHistory = sqliteTable("column_value_history", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  columnValueId: integer("columnValueId")
+    .notNull()
+    .references(() => columnValues.id, { onDelete: "cascade" }),
+  oldValue: text("oldValue").notNull(),
+  newValue: text("newValue").notNull(),
+  updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`).notNull(),
+});

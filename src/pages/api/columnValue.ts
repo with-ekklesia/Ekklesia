@@ -1,5 +1,5 @@
 import { db } from "@db/drizzle";
-import { columnValues } from "@db/schema";
+import { columnValues, columnValueHistory } from "@db/schema";
 import type { APIRoute } from "astro"
 import { eq } from "drizzle-orm";
 
@@ -15,8 +15,22 @@ const insertSingleColumnValue = (newColumnValue: any) =>
 const insertMultipleColumnValues = (newColumnValues: any[]) =>
   db.insert(columnValues).values(newColumnValues).returning();
 
-const updateColumnValue = (value: string, id: number) =>
-  db.update(columnValues).set({ value: value }).where(eq(columnValues.id, id)).returning();
+// const updateColumnValue = (value: string, id: number) =>
+  // db.update(columnValues).set({ value: value }).where(eq(columnValues.id, id)).returning();
+
+const updateColumnValue = async (value: string, id: number) => {
+  const oldColumnValue = (await getSingleColumnValue(id))[0];
+  const updatedColumnValue = db.update(columnValues).set({ value: value }).where(eq(columnValues.id, id)).returning();
+
+  db.insert(columnValueHistory).values({
+    columnValueId: id,
+    oldValue: oldColumnValue.value || "",
+    newValue: value,
+    updatedAt: new Date().toISOString(),
+  });
+
+  return updatedColumnValue;
+}
 
 const deleteSingleColumnValue = (id: number) =>
   db.delete(columnValues).where(eq(columnValues.id, id)).returning();

@@ -2,10 +2,41 @@
 import Layout from "../layouts/Layout.astro";
 import ColorStyle from "../components/ColorStyle.astro";
 import ColorCard from "../components/ColorCard.astro";
+import Monday from "../components/Monday.astro";
 ---
 
 <Layout title="Boards">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2d;
+            color: #ffffff;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+        th {
+            background-color: #333;
+        }
+        td {
+            background-color: #2b2b3d;
+        }
+        .status {
+            background-color: #f7b340;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
     <ColorCard title="Boards" body="View all available Boards." />
     <ColorCard title="Items" body="View all available Items." />
     <ColorCard title="Columns" body="View all available Columns." />
+    <Monday />
 </Layout>

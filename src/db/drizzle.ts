@@ -2,14 +2,14 @@ import { drizzle } from "drizzle-orm/libsql";
 import { createClient, type Client } from "@libsql/client";
 import * as schema from "./schema";
 import { Effect, Exit, Either, Config, ConfigProvider, Layer } from "effect";
-import { loadEnv } from "vite";
+// import { loadEnv } from "vite";
 
-const env = loadEnv("DEV", process.cwd(), "");
+// const env = loadEnv("DEV", process.cwd(), "");
 
 const configProvider = ConfigProvider.fromMap(
   new Map([
-    ["TURSO_DATABASE_URL", env.TURSO_DATABASE_URL],
-    ["TURSO_AUTH_TOKEN", env.TURSO_AUTH_TOKEN],
+    ["TURSO_DATABASE_URL", import.meta.env.TURSO_DATABASE_URL],
+    ["TURSO_AUTH_TOKEN", import.meta.env.TURSO_AUTH_TOKEN],
   ]),
 );
 const layer = Layer.setConfigProvider(configProvider);
